@@ -15,8 +15,8 @@ import sublime, sublime_plugin
 
 class ExpandSelectionToQuotesCommand(sublime_plugin.TextCommand):
 	def run(self, edit):
-		d_quotes = list(map(lambda x: x.begin(), self.view.find_all('"')))
-		s_quotes = list(map(lambda x: x.begin(), self.view.find_all("'")))
+		d_quotes = list(map(lambda x: x.begin()+1, self.view.find_all(r'[^\\]"')))
+		s_quotes = list(map(lambda x: x.begin()+1, self.view.find_all(r"[^\\]'")))
 
 		for sel in self.view.sel():
 			def search_for_quotes(q_type, quotes):
